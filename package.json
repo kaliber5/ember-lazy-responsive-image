@@ -1,6 +1,6 @@
 {
   "name": "ember-lazy-responsive-image",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Ember addon brings ember-responsive-image and ember-cli-lazysizes together.",
   "keywords": [
     "ember-addon"
@@ -19,7 +19,8 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "^6.6.0"
+    "ember-cli-babel": "^6.6.0",
+    "sharp": "^0.19.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
@@ -30,6 +31,7 @@
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-lazysizes": "^0.0.2",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
@@ -38,6 +40,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
+    "ember-responsive-image": "^1.0.0-rc.1",
     "ember-source": "~2.18.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^5.2.1",
@@ -47,6 +50,9 @@
     "node": "^4.5 || 6.* || >= 7.*"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "after": [
+      "ember-responsive-image"
+    ]
   }
 }
