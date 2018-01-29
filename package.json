@@ -6,12 +6,12 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Andreas Schacht <schacht@kaliber5.de>",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/kaliber5/ember-lazy-responsive-image",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",

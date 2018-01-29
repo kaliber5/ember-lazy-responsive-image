@@ -1,5 +1,5 @@
 import { computed, getWithDefault } from '@ember/object';
-import { alias, or } from '@ember/object/computed';
+import { or } from '@ember/object/computed';
 import ResponsiveImageComponent from 'ember-responsive-image/components/responsive-image';
 import { getOwner } from '@ember/application';
 
@@ -14,7 +14,7 @@ import { getOwner } from '@ember/application';
  */
 export default ResponsiveImageComponent.extend({
 
-  attributeBindings: ['lqipSrc:src'],
+  attributeBindings: ['lqipSrc:src', 'width', 'height'],
 
   /**
    * set to false if you want to disable lazy loading
@@ -37,36 +37,32 @@ export default ResponsiveImageComponent.extend({
   lqip: true,
 
   /**
+   * set the `width` attribute
+   *
+   * @property width
+   * @type Number
+   * @default null
+   * @public
+   */
+  width: null,
+
+  /**
+   * set the `height` attribute
+   *
+   * @property height
+   * @type Number
+   * @default null
+   * @public
+   */
+  height: null,
+
+  /**
    * @property classNameBindings
    * @type string[]
    * @readOnly
    * @protected
    */
   classNameBindings: ['lazyClassName'],
-
-  /**
-   * @property data-srcset
-   * @type {String}
-   * @readOnly
-   * @private
-   */
-  'data-srcset': alias('srcset'),
-
-  /**
-   * @property data-sizes
-   * @type {String}
-   * @readOnly
-   * @private
-   */
-  'data-sizes': alias('sizes'),
-
-  /**
-   * @property data-src
-   * @type {String}
-   * @readOnly
-   * @private
-   */
-  'data-src': alias('src'),
 
   /**
    * returns the inline base64 encoded image
@@ -135,7 +131,7 @@ export default ResponsiveImageComponent.extend({
       let config = getOwner(this).resolveRegistration('config:environment');
       this.set('lazyClassName', getWithDefault(config, 'ember-cli-lazysizes.lazyClass', 'lazyload'));
       // We have to replace the origin attribute bindings to avoid bind `src`, `srcset` and `sizes`
-      this.set('attributeBindings', ['data-srcset', 'data-sizes', 'data-src', 'lqipSrc:src', 'alt']);
+      this.set('attributeBindings', ['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src', 'lqipSrc:src', 'alt', 'width', 'height']);
     }
   }
 });
