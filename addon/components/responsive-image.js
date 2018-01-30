@@ -1,7 +1,6 @@
-import { computed, getWithDefault } from '@ember/object';
+import { computed } from '@ember/object';
 import { or } from '@ember/object/computed';
 import ResponsiveImageComponent from 'ember-responsive-image/components/responsive-image';
-import { getOwner } from '@ember/application';
 
 /**
  * This component extends the `ResponsiveImage`-Component in a lazy manner and supports LQIP technique
@@ -71,7 +70,11 @@ export default ResponsiveImageComponent.extend({
    * @returns {String} the image content
    * @public
    */
-  lazyClassName: null,
+  lazyClassName: computed('lazy', function() {
+    if (this.get('lazy') && typeof FastBoot === 'undefined') {
+      return window.lazySizesConfig.lazyClass;
+    }
+  }),
 
   /**
    * returns the inline base64 encoded image if exists
@@ -89,28 +92,31 @@ export default ResponsiveImageComponent.extend({
   }),
 
   /**
-   * returns the remote lqip image url
+   * returns the remote lqip image url or origin src if lazy is false
    *
    * @property remoteSrc
    * @returns string|null the image content
    * @private
    */
-  remoteSrc: computed('image', 'lqip', function() {
+  remoteSrc: computed('image', 'lqip', 'lazy', function() {
     let img = this.get('image');
     if (this.get('lqip') && this.get('responsiveImage').hasLqip(img)) {
-      return this.get('responsiveImage').getImageBySize(img, this.get('responsiveImage').getLqipWidth(img));
+      return this.get('responsiveImage').getImages(img).findBy('width', this.get('responsiveImage').getLqipWidth(img)).image;
+    }
+    if (!this.get('lazy')) {
+      return this.get('src');
     }
     return null;
   }),
 
   /**
-   * returns the LQIP image src or origin src as a fallback
+   * returns the LQIP image src or origin src via remoteSrc
    *
    * @property lqipSrc
    * @returns string the lqip image source
    * @private
    */
-  lqipSrc: or('inlineSrc', 'remoteSrc', 'src'),
+  lqipSrc: or('inlineSrc', 'remoteSrc'),
 
   /**
    * returns the media type based on the image extension
@@ -127,9 +133,6 @@ export default ResponsiveImageComponent.extend({
   init() {
     this._super(...arguments);
     if (this.get('lazy')) {
-      // get the className from `ember-cli-lazysizes`-config
-      let config = getOwner(this).resolveRegistration('config:environment');
-      this.set('lazyClassName', getWithDefault(config, 'ember-cli-lazysizes.lazyClass', 'lazyload'));
       // We have to replace the origin attribute bindings to avoid bind `src`, `srcset` and `sizes`
       this.set('attributeBindings', ['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src', 'lqipSrc:src', 'alt', 'width', 'height']);
     }

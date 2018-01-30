@@ -21,10 +21,8 @@ export default ResponsiveImageService.extend({
    * @public
    */
   getInlineImage(imageName) {
-    assert(`There is no data for image ${imageName}`, this.get('meta').hasOwnProperty(imageName));
-    assert(`There is no inline data for image ${imageName}`, this.get('meta')[imageName].hasOwnProperty('lqip'));
-    assert(`There is no inline image data for image ${imageName}`, this.get('meta')[imageName].lqip.hasOwnProperty('image'));
-    return this.get('meta')[imageName].lqip.image;
+    assert(`There is no inline image data for image ${imageName}`, this.getLqip(imageName).hasOwnProperty('image'));
+    return this.getLqip(imageName).image;
   },
 
   /**
@@ -37,7 +35,7 @@ export default ResponsiveImageService.extend({
    */
   hasInlineImage(imageName) {
     let meta = this.get('meta');
-    return meta[imageName] && meta[imageName].lqip && meta[imageName].lqip.image;
+    return !!(meta[imageName] && meta[imageName].lqip && meta[imageName].lqip.image);
   },
 
   /**
@@ -50,21 +48,33 @@ export default ResponsiveImageService.extend({
    */
   hasLqip(imageName) {
     let meta = this.get('meta');
-    return meta[imageName] && meta[imageName].lqip;
+    return !!(meta[imageName] && meta[imageName].lqip);
   },
 
   /**
-   * returns whether LQIP is enabled for this image
+   * returns the LQIP width for this image
    *
-   * @method isLqipEnabled
+   * @method getLqipWidth
    * @param {String} imageName The origin name of the Image
    * @returns bool true if LQIP is enabled for this image
    * @public
    */
   getLqipWidth(imageName) {
+    assert(`There is no inline image data for image ${imageName}`, this.getLqip(imageName).hasOwnProperty('width'));
+    return this.getLqip(imageName).width;
+  },
+
+  /**
+   * returns LQIP part from meta for this image
+   *
+   * @method getLqip
+   * @param {String} imageName The origin name of the Image
+   * @returns {*} the lqip part of the meta infos
+   * @private
+   */
+  getLqip(imageName) {
     assert(`There is no data for image ${imageName}`, this.get('meta').hasOwnProperty(imageName));
-    assert(`There is no inline data for image ${imageName}`, this.get('meta')[imageName].hasOwnProperty('lqip'));
-    assert(`There is no inline image data for image ${imageName}`, this.get('meta')[imageName].lqip.hasOwnProperty('width'));
-    return this.get('meta')[imageName].lqip.width;
+    assert(`There is no lqip data for image ${imageName}`, this.get('meta')[imageName].hasOwnProperty('lqip'));
+    return this.get('meta')[imageName].lqip;
   }
 });

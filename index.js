@@ -65,7 +65,15 @@ module.exports = {
     if (config.lqip && config.lqip.type === 'inline') {
       this.processed.push(image);
       return sharped.toBuffer().then((buffer) => {
-        return sharp(buffer).resize(config.lqip.width, null).toBuffer();
+        let quality = config.lqip.quality || config.quality;
+        return sharp(buffer).resize(config.lqip.width, null)
+        .withoutEnlargement(true)
+        .jpeg({
+          quality: quality,
+          progressive: true,
+          force: false
+        })
+        .toBuffer();
       }).then((buffer) => {
         this.inlineImages[image] = buffer.toString('base64');
         return sharped;

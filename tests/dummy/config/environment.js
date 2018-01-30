@@ -23,28 +23,37 @@ module.exports = function(environment) {
     },
     'responsive-image': [
       {
-        sourceDir: 'assets/images/generate',
+        sourceDir: 'assets/images/inline',
         destinationDir: 'assets/images/responsive',
         quality: 5,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [1000, 500, 100, 50],
+        supportedWidths: [1000, 500],
         lqip: {
           type: 'inline',
-          width: 25
+          width: 150,
+          quality: 1
         }
       },
       {
-        sourceDir: 'assets/images/small',
-        destinationDir: 'assets/images/smallresponsive',
-        quality: 10,
+        sourceDir: 'assets/images/remote',
+        destinationDir: 'assets/images/responsive',
+        quality: 5,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [10, 25],
+        supportedWidths: [1000, 500, 150],
         lqip: {
           type: 'remote',
-          width: 10
+          width: 150
         }
+      },
+      {
+        sourceDir: 'assets/images/lazy',
+        destinationDir: 'assets/images/responsive',
+        quality: 5,
+        // justCopy: true,
+        removeSourceDir: true,
+        supportedWidths: [1000, 500, 150]
       }
     ]
   };
