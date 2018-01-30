@@ -1,5 +1,7 @@
 # ember-lazy-responsive-image
 
+[![Build Status](https://travis-ci.org/kaliber5/ember-responsive-image.svg?branch=master)](https://travis-ci.org/kaliber5/ember-responsive-image)
+
 This ember-cli addon provides an ad-hoc replacement for the [responsive-image component](https://github.com/kaliber5/ember-responsive-image#the-responsive-image-component). It adds lazy-loading and LQIP (Low Quality Image Placeholder)-techniques to the [ember-responsive-image](https://github.com/kaliber5/ember-responsive-image) addon. It integrates the 
 [lazysizes](https://github.com/aFarkas/lazysizes) library through [ember-cli-lazysizes](https://github.com/kaliber5/ember-cli-lazysizes).
 
