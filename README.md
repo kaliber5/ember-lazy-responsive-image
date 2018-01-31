@@ -33,7 +33,7 @@ module.exports = function(environment) {
 
 * **type:** The type of the LQIP, one of `inline` or `remote`. If type is `inline`, an placeholder-image will be generated as an base64-encoded string. There's no additional request necessary and the image is currently available.
 The downside is the application size increases because the encoded image becomes part of the application code. If type is `remote`, the image placeholder is one of the generated image, picked by the `width`-option.  
-* **width:** If the `type`-option is `inline`, this will be the width of the inline placeholder-image. If type is `remote`, this have to be one of the `supportedWidths`-option. 
+* **width:** (optional) If the `type`-option is `inline`, this will be the width of the inline placeholder-image. If type is `remote`, this have to be one of the `supportedWidths`-option. If you ommit this option, the addon choose the lowest value from `supportedWidths`. 
 * **quality:** (optional) If the `type`-option is `inline`, this is the quality of the inline placeholder-image. If not set, it inherits from the base configuration. This option has no effect if `type` is `remote`.
 
 ## The responsive-image component

@@ -39,7 +39,8 @@ module.exports = {
    */
   addMetaData(image, metadata, config) {
     if (config.lqip) {
-      metadata.lqip = { width: config.lqip.width };
+      let width = this.getLqipWidth(config);
+      metadata.lqip = { width };
       if (config.lqip.type === 'inline' && this.inlineImages[image]) {
         metadata.lqip.image = this.inlineImages[image];
       }
@@ -66,7 +67,7 @@ module.exports = {
     if (config.lqip && config.lqip.type === 'inline') {
       return sharped.toBuffer().then((buffer) => {
         let quality = config.lqip.quality || config.quality;
-        return sharp(buffer).resize(config.lqip.width, null)
+        return sharp(buffer).resize(this.getLqipWidth(config), null)
         .withoutEnlargement(true)
         .jpeg({
           quality: quality,
@@ -100,6 +101,18 @@ module.exports = {
   },
 
   /**
+   * returns the width for lqip
+   *
+   * @param config
+   * return {Number} the width
+   *
+   * @private
+   */
+  getLqipWidth(config) {
+    return config.lqip.width || config.supportedWidths.reduce((acc, val) => Math.min(acc, val), Number.MAX_SAFE_INTEGER);
+  },
+
+  /**
    * validates the configuration
    *
    * @param config
@@ -111,11 +124,8 @@ module.exports = {
     if (!config.lqip.type || ['inline', 'remote'].indexOf(config.lqip.type) < 0) {
       throw Error('You have to provide either \'inline\' or \'remote\' as \'type\' to enable lqip');
     }
-    if (!config.lqip.width) {
-      throw Error('You have to provide a \'width\' to enable lqip');
-    }
-    if (config.lqip.type === 'remote' && config.supportedWidths.indexOf(config.lqip.width) < 0) {
-      throw Error('The \'width\' of \'lqip\' has to be one of the \'supportedWidths\'');
+    if (config.lqip.type === 'remote' && config.lqip.width && config.supportedWidths.indexOf(config.lqip.width) < 0) {
+      throw Error('If you specify a \'width\' on a \'lqip\' \'remote\'-type it has to be one of the \'supportedWidths\'');
     }
   }
 };

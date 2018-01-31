@@ -43,8 +43,7 @@ module.exports = function(environment) {
         removeSourceDir: true,
         supportedWidths: [1000, 500, 150],
         lqip: {
-          type: 'remote',
-          width: 150
+          type: 'remote'
         }
       },
       {
