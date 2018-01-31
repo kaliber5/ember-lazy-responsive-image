@@ -59,11 +59,11 @@ module.exports = {
    * @private
    */
   imagePreProcessor(sharped, image, width, config) {
-    if (this.processed.includes(image) || !this.canProcessImage(config)) {
+    if (this.processed.indexOf(image) > -1 || !this.canProcessImage(config)) {
       return sharped;
     }
+    this.processed.push(image);
     if (config.lqip && config.lqip.type === 'inline') {
-      this.processed.push(image);
       return sharped.toBuffer().then((buffer) => {
         let quality = config.lqip.quality || config.quality;
         return sharp(buffer).resize(config.lqip.width, null)
@@ -108,13 +108,13 @@ module.exports = {
    * @private
    */
   validateConfig(config) {
-    if (!config.lqip.type || !['inline', 'remote'].includes(config.lqip.type)) {
+    if (!config.lqip.type || ['inline', 'remote'].indexOf(config.lqip.type) < 0) {
       throw Error('You have to provide either \'inline\' or \'remote\' as \'type\' to enable lqip');
     }
     if (!config.lqip.width) {
       throw Error('You have to provide a \'width\' to enable lqip');
     }
-    if (config.lqip.type === 'remote' && !config.supportedWidths.includes(config.lqip.width)) {
+    if (config.lqip.type === 'remote' && config.supportedWidths.indexOf(config.lqip.width) < 0) {
       throw Error('The \'width\' of \'lqip\' has to be one of the \'supportedWidths\'');
     }
   }
