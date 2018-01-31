@@ -35,13 +35,17 @@ module.exports = {
    * @param metadata
    * @param config
    * @return {*} the metadata
+   * @throws Error if there's no generated image for inline option
    * @private
    */
   addMetaData(image, metadata, config) {
     if (config.lqip) {
       let width = this.getLqipWidth(config);
       metadata.lqip = { width };
-      if (config.lqip.type === 'inline' && this.inlineImages[image]) {
+      if (config.lqip.type === 'inline') {
+        if (!this.inlineImages[image]) {
+          throw Error(`There's no generated image for ${image}`);
+        }
         metadata.lqip.image = this.inlineImages[image];
       }
     }
