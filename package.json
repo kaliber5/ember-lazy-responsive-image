@@ -1,7 +1,7 @@
 {
   "name": "ember-lazy-responsive-image",
   "version": "0.0.1",
-  "description": "Ember addon brings ember-responsive-image and ember-cli-lazysizes together.",
+  "description": "Add lazy-loading and LQIP-techniques to ember-responsive-image.",
   "keywords": [
     "ember-addon"
   ],

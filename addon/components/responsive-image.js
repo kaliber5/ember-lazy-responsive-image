@@ -101,7 +101,10 @@ export default ResponsiveImageComponent.extend({
   remoteSrc: computed('image', 'lqip', 'lazy', function() {
     let img = this.get('image');
     if (this.get('lqip') && this.get('responsiveImage').hasLqip(img)) {
-      return this.get('responsiveImage').getImages(img).findBy('width', this.get('responsiveImage').getLqipWidth(img)).image;
+      let lqip = this.get('responsiveImage').getImages(img).findBy('width', this.get('responsiveImage').getLqipWidth(img));
+      if (lqip && lqip.image) {
+        return lqip.image;
+      }
     }
     if (!this.get('lazy')) {
       return this.get('src');

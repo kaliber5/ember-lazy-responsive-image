@@ -24,7 +24,7 @@ module.exports = {
     let responsiveImageAddon = this.project.findAddonByName('ember-responsive-image');
     if(responsiveImageAddon) {
       responsiveImageAddon.addMetadataExtension(this.addMetaData, this);
-      responsiveImageAddon.addImagePostProcessor(this.imagePreProcessor, this);
+      responsiveImageAddon.addImagePreProcessor(this.imagePreProcessor, this);
     }
   },
 
