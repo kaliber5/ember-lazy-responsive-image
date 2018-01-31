@@ -137,7 +137,12 @@ export default ResponsiveImageComponent.extend({
     this._super(...arguments);
     if (this.get('lazy')) {
       // We have to replace the origin attribute bindings to avoid bind `src`, `srcset` and `sizes`
-      this.set('attributeBindings', ['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src', 'lqipSrc:src', 'alt', 'width', 'height']);
+      let newBindings = this.get('attributeBindings')
+      .filter((attr) => {
+        return !['src', 'srcset', 'sizes'].includes(attr);
+      })
+      .concat(['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src']);
+      this.set('attributeBindings', newBindings);
     }
   }
 });
