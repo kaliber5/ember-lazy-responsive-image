@@ -35,3 +35,12 @@ module.exports = function(environment) {
 The downside is the application size increases because the encoded image becomes part of the application code. If type is `remote`, the image placeholder is one of the generated image, picked by the `width`-option.  
 * **width:** If the `type`-option is `inline`, this will be the width of the inline placeholder-image. If type is `remote`, this have to be one of the `supportedWidths`-option. 
 * **quality:** (optional) If the `type`-option is `inline`, this is the quality of the inline placeholder-image. If not set, it inherits from the base configuration. This option has no effect if `type` is `remote`.
+
+## The responsive-image component
+
+The responsive image component replace the origin [responsive-image component](https://github.com/kaliber5/ember-responsive-image#the-responsive-image-component) and supports laziness and LQIP out-of-the-box.
+To disable lazyness and/or LQIP on a particular component, you can set the parameters `lazy` and/or `lqip` to false. 
+
+```hbs
+{{responsive-image image="myImage.png" lazy=false lqip=false}}
+```
