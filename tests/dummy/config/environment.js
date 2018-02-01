@@ -20,8 +20,43 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    'responsive-image': [
+      {
+        sourceDir: 'assets/images/inline',
+        destinationDir: 'assets/images/responsive',
+        quality: 5,
+        // justCopy: true,
+        removeSourceDir: true,
+        supportedWidths: [1000, 500],
+        lqip: {
+          type: 'inline',
+          width: 150,
+          quality: 1
+        }
+      },
+      {
+        sourceDir: 'assets/images/remote',
+        destinationDir: 'assets/images/responsive',
+        quality: 5,
+        // justCopy: true,
+        removeSourceDir: true,
+        supportedWidths: [1000, 500, 150],
+        lqip: {
+          type: 'remote'
+        }
+      },
+      {
+        sourceDir: 'assets/images/lazy',
+        destinationDir: 'assets/images/responsive',
+        quality: 5,
+        // justCopy: true,
+        removeSourceDir: true,
+        supportedWidths: [1000, 500, 150]
+      }
+    ]
   };
+
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
