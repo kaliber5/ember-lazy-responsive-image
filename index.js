@@ -14,10 +14,6 @@ module.exports = {
    */
   processed: [],
 
-  isDevelopingAddon() {
-    return true;
-  },
-
   included() {
     this._super.included.apply(this, arguments);
 

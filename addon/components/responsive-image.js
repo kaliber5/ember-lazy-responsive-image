@@ -13,7 +13,7 @@ import ResponsiveImageComponent from 'ember-responsive-image/components/responsi
  */
 export default ResponsiveImageComponent.extend({
 
-  attributeBindings: ['lqipSrc:src', 'width', 'height'],
+  attributeBindings: ['lqipSrc:src'],
 
   /**
    * set to false if you want to disable lazy loading
@@ -36,26 +36,6 @@ export default ResponsiveImageComponent.extend({
   lqip: true,
 
   /**
-   * set the `width` attribute
-   *
-   * @property width
-   * @type Number
-   * @default null
-   * @public
-   */
-  width: null,
-
-  /**
-   * set the `height` attribute
-   *
-   * @property height
-   * @type Number
-   * @default null
-   * @public
-   */
-  height: null,
-
-  /**
    * @property classNameBindings
    * @type string[]
    * @readOnly
@@ -64,11 +44,11 @@ export default ResponsiveImageComponent.extend({
   classNameBindings: ['lazyClassName'],
 
   /**
-   * returns the inline base64 encoded image
+   * returns the lazysizes classname for lazy loading
    *
-   * @property inlineSrc
-   * @returns {String} the image content
-   * @public
+   * @property lazyClassName
+   * @returns {String} name of the class
+   * @private
    */
   lazyClassName: computed('lazy', function() {
     if (this.get('lazy') && typeof FastBoot === 'undefined') {
