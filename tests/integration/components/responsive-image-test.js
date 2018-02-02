@@ -43,7 +43,7 @@ describe(
     it('it supports lqip if configured', function() {
       this.set('image', 'remote.png');
       this.render(hbs`{{responsive-image image=image}}`);
-      expect(find('img').getAttribute('src')).to.be.equal('/assets/images/responsive/remote150w.png');
+      expect(find('img').getAttribute('src')).to.be.equal('/assets/images/responsive/remote50w.png');
       this.set('image', 'inline.png');
       expect(find('img').getAttribute('src')).to.have.string('data:image/png;base64,');
     });

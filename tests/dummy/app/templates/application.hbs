@@ -1,6 +1,20 @@
-<h2 id="title">Welcome to Ember</h2>
+<h1 class="header">Ember Lazy Responsive Image</h1>
 
-{{outlet}}
-{{responsive-image image="lazy.png" className="lazy"}}
-{{responsive-image image="remote.png" className="remote"}}
-{{responsive-image image="inline.png" className="inline"}}
+<div class="content">
+
+  <div class="images">
+    <div>
+      <h2>Lazy, inline LQIP</h2>
+      {{responsive-image image="inline.png" className="inline"}}
+    </div>
+    <div>
+      <h2>Lazy, remote LQIP</h2>
+      {{responsive-image image="remote.png" className="remote"}}
+    </div>
+    <div>
+      <h2>Lazy, no LQIP</h2>
+      {{responsive-image image="lazy.png" className="lazy"}}
+    </div>
+  </div>
+
+</div>
