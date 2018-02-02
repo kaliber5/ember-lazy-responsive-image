@@ -110,7 +110,10 @@ export default ResponsiveImageComponent.extend({
    */
   mediaType: computed('image', function() {
     let imageExtension = this.get('image').split('.').pop();
-    return `image/${imageExtension}`;
+    if (imageExtension.toLowerCase() === 'jpg') {
+      imageExtension = 'jpeg';
+    }
+    return `image/${imageExtension.toLowerCase()}`;
   }),
 
   init() {
