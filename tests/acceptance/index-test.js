@@ -18,8 +18,8 @@ describe('Acceptance | index', function() {
   it('renders the lazy images', function() {
     visit('/');
     return andThen(() => {
-      expect(find('.inline').getAttribute('src')).to.have.string('data:image/png;base64,');
-      expect(find('.remote').getAttribute('src')).to.be.equal('/assets/images/responsive/remote50w.png');
+      expect(find('.inline').getAttribute('src')).to.have.string('data:image/jpeg;base64,');
+      expect(find('.remote').getAttribute('src')).to.be.equal('/assets/images/responsive/remote50w.jpg');
       expect(find('.lazy').hasAttribute('src')).to.be.false;
     });
   });
