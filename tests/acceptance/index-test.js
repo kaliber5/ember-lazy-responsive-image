@@ -19,7 +19,7 @@ describe('Acceptance | index', function() {
     visit('/');
     return andThen(() => {
       expect(find('.inline').getAttribute('src')).to.have.string('data:image/png;base64,');
-      expect(find('.remote').getAttribute('src')).to.be.equal('/assets/images/responsive/remote150w.png');
+      expect(find('.remote').getAttribute('src')).to.be.equal('/assets/images/responsive/remote50w.png');
       expect(find('.lazy').hasAttribute('src')).to.be.false;
     });
   });

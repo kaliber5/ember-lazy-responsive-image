@@ -31,8 +31,8 @@ module.exports = function(environment) {
         supportedWidths: [1000, 500],
         lqip: {
           type: 'inline',
-          width: 150,
-          quality: 1
+          width: 50,
+          quality: 30
         }
       },
       {
@@ -41,7 +41,7 @@ module.exports = function(environment) {
         quality: 5,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [1000, 500, 150],
+        supportedWidths: [1000, 500, 50],
         lqip: {
           type: 'remote'
         }
