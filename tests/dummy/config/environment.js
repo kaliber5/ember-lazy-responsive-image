@@ -25,10 +25,10 @@ module.exports = function(environment) {
       {
         sourceDir: 'assets/images/inline',
         destinationDir: 'assets/images/responsive',
-        quality: 5,
+        quality: 80,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [1000, 500],
+        supportedWidths: [800, 640, 320],
         lqip: {
           type: 'inline',
           width: 50,
@@ -38,10 +38,10 @@ module.exports = function(environment) {
       {
         sourceDir: 'assets/images/remote',
         destinationDir: 'assets/images/responsive',
-        quality: 5,
+        quality: 80,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [1000, 500, 50],
+        supportedWidths: [800, 640, 320, 50],
         lqip: {
           type: 'remote'
         }
@@ -49,10 +49,10 @@ module.exports = function(environment) {
       {
         sourceDir: 'assets/images/lazy',
         destinationDir: 'assets/images/responsive',
-        quality: 5,
+        quality: 80,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [1000, 500, 150]
+        supportedWidths: [800, 640, 320]
       }
     ]
   };
