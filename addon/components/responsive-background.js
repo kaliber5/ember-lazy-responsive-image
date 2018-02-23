@@ -18,6 +18,13 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
 
   attributeBindings: ['data-bgset', 'data-sizes'],
 
+  /**
+   * insert the stylesheets with the background image to the consumer
+   *
+   * @property style
+   * @type string
+   * @private
+   */
   style: computed('lqipSrc', function() {
     if (isPresent(this.get('lqipSrc'))) {
       return htmlSafe(`background-image: url('${this.get('lqipSrc')}');`);
@@ -34,6 +41,13 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
    */
   src: readOnly('suitableSrc'),
 
+  /**
+   * the available images for background image
+   *
+   * @property data.bgset
+   * @type string
+   * @private
+   */
   'data-bgset': computed('lazy', 'image', function() {
     if (this.get('lazy') === true) {
       return this.get('responsiveImage').getImages(this.get('image')).map((item) => {
@@ -44,6 +58,13 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
     }
   }),
 
+  /**
+   * the available sizes for background image
+   *
+   * @property data.bgset
+   * @type string
+   * @private
+   */
   'data-sizes': computed('lazy', 'size', function() {
     if (this.get('lazy') === true &&  isPresent(this.get('size'))) {
       return this.get('size') + 'vw';

@@ -31,6 +31,8 @@ module.exports = function(environment) {
 }
 ```
 
+**Note:** If you're using the responsive-background component, you have to enable the `bgset`-plugin for `ember-cli-lazysizes` in your `ember-cli-build.js` file, see: [plugins](https://github.com/kaliber5/ember-cli-lazysizes#plugins)
+
 ### Options
 
 * **type:** The type of the LQIP, one of `inline` or `remote`. If type is `inline`, an placeholder-image will be generated as an base64-encoded string. There's no additional request necessary and the image is immediately available.
@@ -45,4 +47,14 @@ To disable lazyness and/or LQIP on a particular component, you can set the param
 
 ```hbs
 {{responsive-image image="myImage.png" lazy=false lqip=false}}
+```
+## The responsive-background component
+
+**Note:** If you're using the responsive-background component, you have to enable the `bgset`-plugin for `ember-cli-lazysizes` in your `ember-cli-build.js` file, see: [plugins](https://github.com/kaliber5/ember-cli-lazysizes#plugins)
+
+The responsive background component replaces the origin [responsive-background component](https://github.com/kaliber5/ember-responsive-image#the-responsive-background-component) and supports laziness and LQIP out-of-the-box.
+Like the responsive-image component, you can disable lazyness and/or LQIP through the parameters `lazy` and `lqip`. 
+
+```hbs
+{{responsive-background image="myImage.png" lazy=false lqip=false}}
 ```
