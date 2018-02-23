@@ -1944,9 +1944,9 @@ ember-cli-is-package-missing@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-is-package-missing/-/ember-cli-is-package-missing-1.0.0.tgz#6e6184cafb92635dd93ca6c946b104292d4e3390"
 
-ember-cli-lazysizes@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-lazysizes/-/ember-cli-lazysizes-0.1.0.tgz#27837db3b0945cec19adecbb889852b3021fb75c"
+ember-cli-lazysizes@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-lazysizes/-/ember-cli-lazysizes-0.1.1.tgz#1557f742cc94880cdd5f2dc0fbab9692d22d2f79"
   dependencies:
     broccoli-merge-trees "^2.0.0"
     broccoli-stew "^1.5.0"

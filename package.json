@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
-    "ember-cli-lazysizes": "^0.1.0",
+    "ember-cli-lazysizes": "^0.1.1",
     "ember-responsive-image": "^1.0.0-rc.4",
     "sharp": "^0.19.0"
   },
