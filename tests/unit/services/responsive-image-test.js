@@ -1,11 +1,10 @@
 import { expect } from 'chai';
 import {
-  setupTest,
-  it
+  setupTest
 } from 'ember-mocha';
 import {
   describe,
-  beforeEach
+  it
 } from 'mocha';
 
 const meta = {
@@ -64,28 +63,26 @@ const meta = {
 describe(
   'ResponsiveImageService',
   function() {
-    setupTest('service:responsive-image', {});
-    beforeEach(function() {
-      let service = this.subject();
-      service.set('meta', meta);
+    let hooks = setupTest();
+    hooks.beforeEach(function() {
+      this.service = this.owner.lookup('service:responsive-image');
+      this.service.set('meta', meta);
     });
+
     it('provides lqip enabled info from meta', function() {
-      let service = this.subject();
-      expect(service.hasLqip('inline.png')).to.be.true;
-      expect(service.hasLqip('remote.png')).to.be.true;
-      expect(service.hasLqip('lazy.png')).to.be.false;
+      expect(this.service.hasLqip('inline.png')).to.be.true;
+      expect(this.service.hasLqip('remote.png')).to.be.true;
+      expect(this.service.hasLqip('lazy.png')).to.be.false;
     });
     it('provides inline image info from meta', function() {
-      let service = this.subject();
-      expect(service.hasInlineImage('remote.png')).to.be.false;
-      expect(service.hasInlineImage('lazy.png')).to.be.false;
-      expect(service.hasInlineImage('inline.png')).to.be.true;
-      expect(service.getInlineImage('inline.png')).to.be.equal(meta['inline.png'].lqip.image);
+      expect(this.service.hasInlineImage('remote.png')).to.be.false;
+      expect(this.service.hasInlineImage('lazy.png')).to.be.false;
+      expect(this.service.hasInlineImage('inline.png')).to.be.true;
+      expect(this.service.getInlineImage('inline.png')).to.be.equal(meta['inline.png'].lqip.image);
     });
     it('provides the width of the lqip', function() {
-      let service = this.subject();
-      expect(service.getLqipWidth('inline.png')).to.be.equal(meta['inline.png'].lqip.width);
-      expect(service.getLqipWidth('remote.png')).to.be.equal(meta['remote.png'].lqip.width);
+      expect(this.service.getLqipWidth('inline.png')).to.be.equal(meta['inline.png'].lqip.width);
+      expect(this.service.getLqipWidth('remote.png')).to.be.equal(meta['remote.png'].lqip.width);
     });
   }
 );
