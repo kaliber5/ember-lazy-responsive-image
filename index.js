@@ -2,7 +2,7 @@
 const sharp = require('sharp');
 
 module.exports = {
-  name: 'ember-lazy-responsive-image',
+  name: require('./package').name,
 
   /**
    * contains images as base64 encoded strings
