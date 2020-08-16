@@ -24,7 +24,7 @@
   "dependencies": {
     "ember-cli-babel": "^7.1.2",
     "ember-cli-lazysizes": "^0.1.1",
-    "sharp": "^0.21.1"
+    "sharp": "^0.26.3"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.6.3",
@@ -46,7 +46,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-mocha": "^0.14.0",
     "ember-resolver": "^5.0.1",
-    "ember-responsive-image": "^1.0.0-rc.6",
+    "ember-responsive-image": "^1.0.0-rc.7",
     "ember-source": "~3.6.0",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.0.0",
@@ -64,5 +64,8 @@
     "after": [
       "ember-responsive-image"
     ]
+  },
+  "resolutions": {
+    "**/sharp": "^0.26.3"
   }
 }
