@@ -113,5 +113,5 @@ jobs:
     - name: Install dependencies
       uses: bahmutov/npm-install@v1
 
-    - name: Test
+    - name: Setup scenario dependencies
       run: yarn ember try:one ${{ matrix.ember-try-scenario }}
