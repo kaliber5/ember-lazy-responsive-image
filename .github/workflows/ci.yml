@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+env:
+  NODE_VERSION: '10.x'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '${{ env.NODE_VERSION }}'
+
+    - name: Install dependencies
+      uses: bahmutov/npm-install@v1
+
+    - name: Lint
+      run: yarn lint:js
+    - name: Lint
+      run: yarn lint:hbs
+
+  test:
+    name: Tests
+    runs-on: ${{ matrix.os }}
+    needs: lint
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        browser: [chrome]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '${{ env.NODE_VERSION }}'
+
+    - name: Install dependencies
+      uses: bahmutov/npm-install@v1
+
+    - name: Test Ember
+      run: yarn test --launch ${{ matrix.browser }}
+
+
+  floating-dependencies:
+    name: Floating Dependencies
+    runs-on: ${{ matrix.os }}
+    needs: lint
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        browser: [chrome]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '${{ env.NODE_VERSION }}'
+
+    - name: Install dependencies
+      uses: bahmutov/npm-install@v1
+      with:
+        useLockFile: false
+
+    - name: Test
+      run: yarn test --launch ${{ matrix.browser }}
+
+
+  try-scenarios:
+    name: Tests - ${{ matrix.ember-try-scenario }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.allow-failure }}
+    needs: test
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ember-try-scenario:
+          - ember-lts-2.16
+          - ember-lts-2.18
+          - ember-release
+          - ember-beta
+          - ember-default-with-jquery
+        allow-failure: [false]
+        include:
+          - ember-try-scenario: ember-canary
+            allow-failure: true
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '${{ env.NODE_VERSION }}'
+
+    - name: Install dependencies
+      uses: bahmutov/npm-install@v1
+
+    - name: Test
+      run: yarn ember try:one ${{ matrix.ember-try-scenario }}
