@@ -11,7 +11,6 @@ import { assert } from '@ember/debug';
  * @public
  */
 export default ResponsiveImageService.extend({
-
   /**
    * returns the inline image data as base64 encoded string
    *
@@ -21,7 +20,10 @@ export default ResponsiveImageService.extend({
    * @public
    */
   getInlineImage(imageName) {
-    assert(`There is no inline image data for image ${imageName}`, this.getLqip(imageName).hasOwnProperty('image'));
+    assert(
+      `There is no inline image data for image ${imageName}`,
+      this.getLqip(imageName).image
+    );
     return this.getLqip(imageName).image;
   },
 
@@ -34,8 +36,12 @@ export default ResponsiveImageService.extend({
    * @public
    */
   hasInlineImage(imageName) {
-    let meta = this.get('meta');
-    return !!(meta[imageName] && meta[imageName].lqip && meta[imageName].lqip.image);
+    let meta = this.meta;
+    return !!(
+      meta[imageName] &&
+      meta[imageName].lqip &&
+      meta[imageName].lqip.image
+    );
   },
 
   /**
@@ -47,7 +53,7 @@ export default ResponsiveImageService.extend({
    * @public
    */
   hasLqip(imageName) {
-    let meta = this.get('meta');
+    let meta = this.meta;
     return !!(meta[imageName] && meta[imageName].lqip);
   },
 
@@ -60,7 +66,10 @@ export default ResponsiveImageService.extend({
    * @public
    */
   getLqipWidth(imageName) {
-    assert(`There is no inline image data for image ${imageName}`, this.getLqip(imageName).hasOwnProperty('width'));
+    assert(
+      `There is no inline image data for image ${imageName}`,
+      this.getLqip(imageName).width
+    );
     return this.getLqip(imageName).width;
   },
 
@@ -73,8 +82,11 @@ export default ResponsiveImageService.extend({
    * @private
    */
   getLqip(imageName) {
-    assert(`There is no data for image ${imageName}`, this.get('meta').hasOwnProperty(imageName));
-    assert(`There is no lqip data for image ${imageName}`, this.get('meta')[imageName].hasOwnProperty('lqip'));
-    return this.get('meta')[imageName].lqip;
-  }
+    assert(`There is no data for image ${imageName}`, this.meta.imageName);
+    assert(
+      `There is no lqip data for image ${imageName}`,
+      this.meta[imageName].lqip
+    );
+    return this.meta[imageName].lqip;
+  },
 });

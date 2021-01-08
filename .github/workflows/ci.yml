@@ -26,9 +26,7 @@ jobs:
       uses: bahmutov/npm-install@v1
 
     - name: Lint
-      run: yarn lint:js
-    - name: Lint
-      run: yarn lint:hbs
+      run: yarn lint
 
   test:
     name: Tests
@@ -53,7 +51,7 @@ jobs:
       uses: bahmutov/npm-install@v1
 
     - name: Test Ember
-      run: yarn test --launch ${{ matrix.browser }}
+      run: yarn test:ember --launch ${{ matrix.browser }}
 
 
   floating-dependencies:
@@ -81,7 +79,7 @@ jobs:
         useLockFile: false
 
     - name: Test
-      run: yarn test --launch ${{ matrix.browser }}
+      run: yarn test:ember --launch ${{ matrix.browser }}
 
 
   try-scenarios:
@@ -94,8 +92,7 @@ jobs:
       fail-fast: false
       matrix:
         ember-try-scenario:
-          - ember-lts-2.16
-          - ember-lts-2.18
+          - ember-lts-3.16
           - ember-release
           - ember-beta
           - ember-default-with-jquery

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'dummy',
     environment,
@@ -9,12 +9,12 @@ module.exports = function(environment) {
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
+        // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
@@ -32,8 +32,8 @@ module.exports = function(environment) {
         lqip: {
           type: 'inline',
           width: 50,
-          quality: 30
-        }
+          quality: 30,
+        },
       },
       {
         sourceDir: 'assets/images/remote',
@@ -43,8 +43,8 @@ module.exports = function(environment) {
         removeSourceDir: true,
         supportedWidths: [800, 640, 320, 50],
         lqip: {
-          type: 'remote'
-        }
+          type: 'remote',
+        },
       },
       {
         sourceDir: 'assets/images/lazy',
@@ -52,11 +52,10 @@ module.exports = function(environment) {
         quality: 80,
         // justCopy: true,
         removeSourceDir: true,
-        supportedWidths: [800, 640, 320]
-      }
-    ]
+        supportedWidths: [800, 640, 320],
+      },
+    ],
   };
-
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

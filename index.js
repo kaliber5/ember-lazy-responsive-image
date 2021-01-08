@@ -17,8 +17,10 @@ module.exports = {
   included() {
     this._super.included.apply(this, arguments);
 
-    let responsiveImageAddon = this.project.findAddonByName('ember-responsive-image');
-    if(responsiveImageAddon) {
+    let responsiveImageAddon = this.project.findAddonByName(
+      'ember-responsive-image'
+    );
+    if (responsiveImageAddon) {
       responsiveImageAddon.addMetadataExtension(this.addMetaData, this);
       responsiveImageAddon.addImagePreProcessor(this.imagePreProcessor, this);
     }
@@ -65,21 +67,25 @@ module.exports = {
     }
     this.processed.push(image);
     if (config.lqip && config.lqip.type === 'inline') {
-      return sharped.toBuffer().then((buffer) => {
-        let quality = config.lqip.quality || config.quality;
-        return sharp(buffer).resize(this.getLqipWidth(config), null, {
-          withoutEnlargement: true
+      return sharped
+        .toBuffer()
+        .then((buffer) => {
+          let quality = config.lqip.quality || config.quality;
+          return sharp(buffer)
+            .resize(this.getLqipWidth(config), null, {
+              withoutEnlargement: true,
+            })
+            .jpeg({
+              quality: quality,
+              progressive: true,
+              force: false,
+            })
+            .toBuffer();
         })
-        .jpeg({
-          quality: quality,
-          progressive: true,
-          force: false
-        })
-        .toBuffer();
-      }).then((buffer) => {
-        this.inlineImages[image] = buffer.toString('base64');
-        return sharped;
-      });
+        .then((buffer) => {
+          this.inlineImages[image] = buffer.toString('base64');
+          return sharped;
+        });
     } else {
       return sharped;
     }
@@ -110,7 +116,13 @@ module.exports = {
    * @private
    */
   getLqipWidth(config) {
-    return config.lqip.width || config.supportedWidths.reduce((acc, val) => Math.min(acc, val), Number.MAX_SAFE_INTEGER);
+    return (
+      config.lqip.width ||
+      config.supportedWidths.reduce(
+        (acc, val) => Math.min(acc, val),
+        Number.MAX_SAFE_INTEGER
+      )
+    );
   },
 
   /**
@@ -122,11 +134,22 @@ module.exports = {
    * @private
    */
   validateConfig(config) {
-    if (!config.lqip.type || ['inline', 'remote'].indexOf(config.lqip.type) < 0) {
-      throw Error('You have to provide either \'inline\' or \'remote\' as \'type\' to enable lqip');
+    if (
+      !config.lqip.type ||
+      ['inline', 'remote'].indexOf(config.lqip.type) < 0
+    ) {
+      throw Error(
+        "You have to provide either 'inline' or 'remote' as 'type' to enable lqip"
+      );
     }
-    if (config.lqip.type === 'remote' && config.lqip.width && config.supportedWidths.indexOf(config.lqip.width) < 0) {
-      throw Error('If you specify a \'width\' on a \'lqip\' \'remote\'-type it has to be one of the \'supportedWidths\'');
+    if (
+      config.lqip.type === 'remote' &&
+      config.lqip.width &&
+      config.supportedWidths.indexOf(config.lqip.width) < 0
+    ) {
+      throw Error(
+        "If you specify a 'width' on a 'lqip' 'remote'-type it has to be one of the 'supportedWidths'"
+      );
     }
-  }
+  },
 };

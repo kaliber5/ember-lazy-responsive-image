@@ -11,19 +11,18 @@ import ResponsiveImageComponent from 'ember-responsive-image/components/responsi
  * @public
  */
 export default ResponsiveImageComponent.extend(LazyLqipMixin, {
-
   attributeBindings: ['lqipSrc:src'],
 
   init() {
     this._super(...arguments);
-    if (this.get('lazy')) {
+    if (this.lazy) {
       // We have to replace the origin attribute bindings to avoid bind `src`, `srcset` and `sizes`
-      let newBindings = this.get('attributeBindings')
-      .filter((attr) => {
-        return !['src', 'srcset', 'sizes'].includes(attr);
-      })
-      .concat(['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src']);
+      let newBindings = this.attributeBindings
+        .filter((attr) => {
+          return !['src', 'srcset', 'sizes'].includes(attr);
+        })
+        .concat(['srcset:data-srcset', 'sizes:data-sizes', 'src:data-src']);
       this.set('attributeBindings', newBindings);
     }
-  }
+  },
 });

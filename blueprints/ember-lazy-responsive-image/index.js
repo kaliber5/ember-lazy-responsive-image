@@ -1,9 +1,8 @@
 'use strict';
 
 module.exports = {
-  normalizeEntityName() {
-  },
+  normalizeEntityName() {},
   afterInstall() {
     return this.addAddonToProject('ember-responsive-image');
-  }
+  },
 };
