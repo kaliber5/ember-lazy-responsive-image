@@ -67,8 +67,9 @@ module.exports = {
     if (config.lqip && config.lqip.type === 'inline') {
       return sharped.toBuffer().then((buffer) => {
         let quality = config.lqip.quality || config.quality;
-        return sharp(buffer).resize(this.getLqipWidth(config), null)
-        .withoutEnlargement(true)
+        return sharp(buffer).resize(this.getLqipWidth(config), null, {
+          withoutEnlargement: true
+        })
         .jpeg({
           quality: quality,
           progressive: true,
