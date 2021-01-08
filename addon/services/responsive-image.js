@@ -82,7 +82,7 @@ export default ResponsiveImageService.extend({
    * @private
    */
   getLqip(imageName) {
-    assert(`There is no data for image ${imageName}`, this.meta.imageName);
+    assert(`There is no data for image ${imageName}`, this.meta[imageName]);
     assert(
       `There is no lqip data for image ${imageName}`,
       this.meta[imageName].lqip

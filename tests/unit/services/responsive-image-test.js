@@ -1,6 +1,5 @@
-import { expect } from 'chai';
-import { setupTest } from 'ember-mocha';
-import { describe, it } from 'mocha';
+import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 
 const meta = {
   prepend: '',
@@ -55,31 +54,34 @@ const meta = {
   },
 };
 
-describe('ResponsiveImageService', function () {
-  let hooks = setupTest();
+module('ResponsiveImageService', function (hooks) {
+  setupTest(hooks);
   hooks.beforeEach(function () {
     this.service = this.owner.lookup('service:responsive-image');
     this.service.set('meta', meta);
   });
 
-  it('provides lqip enabled info from meta', function () {
-    expect(this.service.hasLqip('inline.png')).to.be.true;
-    expect(this.service.hasLqip('remote.png')).to.be.true;
-    expect(this.service.hasLqip('lazy.png')).to.be.false;
+  test('provides lqip enabled info from meta', function (assert) {
+    assert.equal(this.service.hasLqip('inline.png'), true);
+    assert.equal(this.service.hasLqip('remote.png'), true);
+    assert.equal(this.service.hasLqip('lazy.png'), false);
   });
-  it('provides inline image info from meta', function () {
-    expect(this.service.hasInlineImage('remote.png')).to.be.false;
-    expect(this.service.hasInlineImage('lazy.png')).to.be.false;
-    expect(this.service.hasInlineImage('inline.png')).to.be.true;
-    expect(this.service.getInlineImage('inline.png')).to.be.equal(
+  test('provides inline image info from meta', function (assert) {
+    assert.equal(this.service.hasInlineImage('remote.png'), false);
+    assert.equal(this.service.hasInlineImage('lazy.png'), false);
+    assert.equal(this.service.hasInlineImage('inline.png'), true);
+    assert.equal(
+      this.service.getInlineImage('inline.png'),
       meta['inline.png'].lqip.image
     );
   });
-  it('provides the width of the lqip', function () {
-    expect(this.service.getLqipWidth('inline.png')).to.be.equal(
+  test('provides the width of the lqip', function (assert) {
+    assert.equal(
+      this.service.getLqipWidth('inline.png'),
       meta['inline.png'].lqip.width
     );
-    expect(this.service.getLqipWidth('remote.png')).to.be.equal(
+    assert.equal(
+      this.service.getLqipWidth('remote.png'),
       meta['remote.png'].lqip.width
     );
   });

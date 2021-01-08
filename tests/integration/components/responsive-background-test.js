@@ -1,53 +1,57 @@
-import { expect } from 'chai';
 import { setupResponsiveImage } from 'ember-responsive-image/test-support';
-import { setupRenderingTest } from 'ember-mocha';
-import { render, find } from '@ember/test-helpers';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { it, describe } from 'mocha';
+import { module, test } from 'qunit';
 
-describe('Integration: Responsive Background Component', function () {
-  let hooks = setupRenderingTest();
+module('Integration: Responsive Background Component', function (hooks) {
+  setupRenderingTest(hooks);
   setupResponsiveImage(hooks);
 
-  it('it renders lazy by default', async function () {
+  test('it renders lazy by default', async function (assert) {
     await render(
-      hbs`{{responsive-background image="lazy.jpg" size="100" class="bg"}}`
+      hbs`<ResponsiveBackground @image="lazy.jpg" @size="100" class="bg"/>`
     );
-    expect(find('div.bg').getAttribute('data-bgset')).to.have.string(
-      '/assets/images/responsive/lazy800w.jpg 800w'
-    );
-    expect(find('div.bg').getAttribute('data-sizes')).to.equal('100vw');
-    expect(find('div.bg').getAttribute('class')).to.contain('lazyload');
-    expect(find('div.bg').hasAttribute('style')).to.be.false;
+    assert
+      .dom('div.bg')
+      .hasAttribute(
+        'data-bgset',
+        new RegExp('/assets/images/responsive/lazy800w.jpg 800w')
+      );
+    assert.dom('div.bg').hasAttribute('data-sizes', '100vw');
+    assert.dom('div.bg').hasClass('lazyload');
+    assert.dom('div.bg').doesNotHaveAttribute('style');
   });
-  it('it skip lazy attributes if lazy is disabled', async function () {
+  test('it skip lazy attributes if lazy is disabled', async function (assert) {
     await render(
-      hbs`{{responsive-background lazy=false image="lazy.jpg" size="100" class="bg"}}`
+      hbs`<ResponsiveBackground @lazy={{false}} @image="lazy.jpg" @size="100" class="bg"/>`
     );
-    expect(find('div.bg').hasAttribute('style')).to.be.true;
-    expect(find('div.bg').getAttribute('style')).to.have.string(
-      'background-image: url('
-    );
-    expect(find('div.bg').getAttribute('class')).to.not.contain('lazyload');
+    assert
+      .dom('div.bg')
+      .hasAttribute('style', new RegExp('background-image: url'));
+    assert.dom('div.bg').hasNoClass('lazyload');
   });
-  it('it supports lqip if configured', async function () {
+  test('it supports lqip if configured', async function (assert) {
     this.set('image', 'remote.jpg');
-    await render(hbs`{{responsive-background image=image class="bg"}}`);
-    expect(find('div.bg').getAttribute('style')).to.be.equal(
-      "background-image: url('/assets/images/responsive/remote50w.jpg');"
-    );
+    await render(hbs`<ResponsiveBackground @image={{this.image}} class="bg"/>`);
+    assert
+      .dom('div.bg')
+      .hasAttribute(
+        'style',
+        "background-image: url('/assets/images/responsive/remote50w.jpg');"
+      );
     this.set('image', 'inline.jpg');
-    expect(find('div.bg').getAttribute('style')).to.have.string(
-      "background-image: url('data:image/jpeg;base64,"
-    );
+    assert
+      .dom('div.bg')
+      .hasAttribute('style', new RegExp('background-image: url'));
   });
-  it('it skip lqip if disabled', async function () {
+  test('it skip lqip if disabled', async function (assert) {
     this.set('image', 'remote.jpg');
     await render(
-      hbs`{{responsive-background image=image lqip=false class="bg"}}`
+      hbs`<ResponsiveBackground @image={{this.image}} @lqip={{false}} class="bg"/>`
     );
-    expect(find('div.bg').hasAttribute('style')).to.be.false;
+    assert.dom('div.bg').doesNotHaveAttribute('style');
     this.set('image', 'inline.jpg');
-    expect(find('div.bg').hasAttribute('style')).to.be.false;
+    assert.dom('div.bg').doesNotHaveAttribute('style');
   });
 });
