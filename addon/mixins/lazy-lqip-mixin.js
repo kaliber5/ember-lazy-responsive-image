@@ -10,7 +10,6 @@ import { or } from '@ember/object/computed';
  * @private
  */
 export default Mixin.create({
-
   /**
    * set to false if you want to disable lazy loading
    *
@@ -46,10 +45,10 @@ export default Mixin.create({
    * @returns {String} name of the class
    * @private
    */
-  lazyClassName: computed('lazy', function() {
-    if (this.get('lazy') && typeof FastBoot === 'undefined') {
-      return window.lazySizesConfig.lazyClass;
-    }
+  lazyClassName: computed('lazy', function () {
+    return this.lazy && typeof FastBoot === 'undefined'
+      ? window.lazySizesConfig.lazyClass
+      : undefined;
   }),
 
   /**
@@ -59,13 +58,21 @@ export default Mixin.create({
    * @returns string|null the image content
    * @private
    */
-  inlineSrc: computed('image', 'mediaType', 'lqip', function() {
-    let img = this.get('image');
-    if (this.get('lqip') && this.get('responsiveImage').hasInlineImage(img)) {
-      return `data:${this.get('mediaType')};base64,${this.get('responsiveImage').getInlineImage(img)}`;
+  inlineSrc: computed(
+    'image',
+    'lqip',
+    'mediaType',
+    'responsiveImage',
+    function () {
+      let img = this.image;
+      if (this.lqip && this.responsiveImage.hasInlineImage(img)) {
+        return `data:${
+          this.mediaType
+        };base64,${this.responsiveImage.getInlineImage(img)}`;
+      }
+      return null;
     }
-    return null;
-  }),
+  ),
 
   /**
    * returns the remote lqip image url or origin src if lazy is false
@@ -74,19 +81,28 @@ export default Mixin.create({
    * @returns string|null the image content
    * @private
    */
-  remoteSrc: computed('image', 'lqip', 'lazy', function() {
-    let img = this.get('image');
-    if (this.get('lqip') && this.get('responsiveImage').hasLqip(img)) {
-      let lqip = this.get('responsiveImage').getImages(img).findBy('width', this.get('responsiveImage').getLqipWidth(img));
-      if (lqip && lqip.image) {
-        return lqip.image;
+  remoteSrc: computed(
+    'image',
+    'lazy',
+    'lqip',
+    'responsiveImage',
+    'src',
+    function () {
+      let img = this.image;
+      if (this.lqip && this.responsiveImage.hasLqip(img)) {
+        let lqip = this.responsiveImage
+          .getImages(img)
+          .findBy('width', this.responsiveImage.getLqipWidth(img));
+        if (lqip && lqip.image) {
+          return lqip.image;
+        }
       }
+      if (!this.lazy) {
+        return this.src;
+      }
+      return null;
     }
-    if (!this.get('lazy')) {
-      return this.get('src');
-    }
-    return null;
-  }),
+  ),
 
   /**
    * returns the LQIP image src or origin src via remoteSrc
@@ -104,13 +120,11 @@ export default Mixin.create({
    * @returns {String} the media type
    * @private
    */
-  mediaType: computed('image', function() {
-    let imageExtension = this.get('image').split('.').pop();
+  mediaType: computed('image', function () {
+    let imageExtension = this.image.split('.').pop();
     if (imageExtension.toLowerCase() === 'jpg') {
       imageExtension = 'jpeg';
     }
     return `image/${imageExtension.toLowerCase()}`;
   }),
-
-
 });

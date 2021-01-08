@@ -7,11 +7,24 @@ This ember-cli addon provides an ad-hoc replacement for the [responsive-image co
 
 See our [demo page](https://kaliber5.github.io/ember-lazy-responsive-image/)
 
-## Installation
 
-* `ember install ember-lazy-responsive-image`
+Compatibility
+------------------------------------------------------------------------------
 
-## Basic Usage
+* Ember.js v3.16 or above
+* Ember CLI v2.13 or above
+* Node.js v10 or above
+
+
+Installation
+------------------------------------------------------------------------------
+
+```
+ember install ember-lazy-responsive-image
+```
+
+Usage
+------------------------------------------------------------------------------
 
 The addon adds lazy-loading feature to the [responsive-image component](https://github.com/kaliber5/ember-responsive-image#the-responsive-image-component) without any need for changes in your configuration.
 Furthermore it extends the configuration of the [ember-responsive-image](https://github.com/kaliber5/ember-responsive-image#basic-usage) addon with the new `lqip` option to enable LQIP-support:
@@ -58,3 +71,14 @@ Like the responsive-image component, you can disable lazyness and/or LQIP throug
 ```hbs
 {{responsive-background image="myImage.png" lazy=false lqip=false}}
 ```
+
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

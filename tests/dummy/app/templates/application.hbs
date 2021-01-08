@@ -1,3 +1,5 @@
+{{page-title "Ember Lazy Responsive Image"}}
+
 <h1 class="header">Ember Lazy Responsive Image</h1>
 
 <div class="content">
@@ -5,30 +7,30 @@
   <div class="images">
     <div>
       <h2>Lazy, inline LQIP</h2>
-      {{responsive-image image="inline.jpg" className="inline"}}
+      <ResponsiveImage @image="inline.jpg" class="inline"/>
     </div>
     <div>
       <h2>Lazy, remote LQIP</h2>
-      {{responsive-image image="remote.jpg" className="remote"}}
+      <ResponsiveImage @image="remote.jpg" class="remote"/>
     </div>
     <div>
       <h2>Lazy, no LQIP</h2>
-      {{responsive-image image="lazy.jpg" className="lazy"}}
+      <ResponsiveImage @image="lazy.jpg" class="lazy"/>
     </div>
   </div>
 
   <div class="images">
     <div>
       <h2>Lazy, inline LQIP</h2>
-      {{responsive-background image="inline.jpg" class="bg-inline img"}}
+      <ResponsiveBackground @image="inline.jpg" class="bg-inline img"/>
     </div>
     <div>
       <h2>Lazy, remote LQIP</h2>
-      {{responsive-background image="remote.jpg" class="bg-remote img"}}
+      <ResponsiveBackground @image="remote.jpg" class="bg-remote img"/>
     </div>
     <div>
       <h2>Lazy, no LQIP</h2>
-      {{responsive-background image="lazy.jpg" class="bg-lazy img"}}
+      <ResponsiveBackground @image="lazy.jpg" class="bg-lazy img"/>
     </div>
   </div>
 

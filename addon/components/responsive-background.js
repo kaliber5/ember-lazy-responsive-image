@@ -15,7 +15,6 @@ import ResponsiveBackgroundComponent from 'ember-responsive-image/components/res
  * @public
  */
 export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
-
   attributeBindings: ['data-bgset', 'data-sizes'],
 
   /**
@@ -25,9 +24,9 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
    * @type string
    * @private
    */
-  style: computed('lqipSrc', function() {
-    if (isPresent(this.get('lqipSrc'))) {
-      return htmlSafe(`background-image: url('${this.get('lqipSrc')}');`);
+  style: computed('lqipSrc', function () {
+    if (isPresent(this.lqipSrc)) {
+      return htmlSafe(`background-image: url('${this.lqipSrc}');`);
     }
     return null;
   }),
@@ -48,11 +47,14 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
    * @type string
    * @private
    */
-  'data-bgset': computed('lazy', 'image', function() {
-    if (this.get('lazy') === true) {
-      return this.get('responsiveImage').getImages(this.get('image')).map((item) => {
-        return `${item.image} ${item.width}w`;
-      }, this).join(', ');
+  'data-bgset': computed('image', 'lazy', 'responsiveImage', function () {
+    if (this.lazy === true) {
+      return this.responsiveImage
+        .getImages(this.image)
+        .map((item) => {
+          return `${item.image} ${item.width}w`;
+        }, this)
+        .join(', ');
     } else {
       return null;
     }
@@ -65,10 +67,10 @@ export default ResponsiveBackgroundComponent.extend(LazyLqipMixin, {
    * @type string
    * @private
    */
-  'data-sizes': computed('lazy', 'size', function() {
-    if (this.get('lazy') === true &&  isPresent(this.get('size'))) {
-      return this.get('size') + 'vw';
+  'data-sizes': computed('lazy', 'size', function () {
+    if (this.lazy === true && isPresent(this.size)) {
+      return this.size + 'vw';
     }
     return null;
-  })
+  }),
 });

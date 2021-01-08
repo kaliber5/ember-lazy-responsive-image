@@ -1,18 +1,28 @@
-import { describe, it } from 'mocha';
-import { setupApplicationTest } from 'ember-mocha';
-import { expect } from 'chai';
-import { visit, find } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
+import { visit } from '@ember/test-helpers';
 
-describe('Acceptance | index', function() {
-  setupApplicationTest();
+module('Acceptance | index', function (hooks) {
+  setupApplicationTest(hooks);
 
-  it('renders the lazy images', async function() {
+  test('renders the lazy images', async function (assert) {
     await visit('/');
-    expect(find('.inline').getAttribute('src')).to.have.string('data:image/jpeg;base64,');
-    expect(find('.remote').getAttribute('src')).to.be.equal('/assets/images/responsive/remote50w.jpg');
-    expect(find('.lazy').hasAttribute('src')).to.be.false;
-    expect(find('.bg-inline').getAttribute('style')).to.have.string('background-image: url(\'data:image/jpeg;base64,');
-    expect(find('.bg-remote').getAttribute('style')).to.be.equal('background-image: url(\'/assets/images/responsive/remote50w.jpg\');');
-    expect(find('.bg-lazy').hasAttribute('style')).to.be.false;
+    assert
+      .dom('.inline')
+      .hasAttribute('src', new RegExp('data:image/jpeg;base64,'));
+    assert
+      .dom('.remote')
+      .hasAttribute('src', '/assets/images/responsive/remote50w.jpg');
+    assert.dom('.lazy').doesNotHaveAttribute('src');
+    assert
+      .dom('.bg-inline')
+      .hasAttribute('style', new RegExp('background-image: url'));
+    assert
+      .dom('.bg-remote')
+      .hasAttribute(
+        'style',
+        "background-image: url('/assets/images/responsive/remote50w.jpg');"
+      );
+    assert.dom('.bg-lazy').doesNotHaveAttribute('style');
   });
 });
