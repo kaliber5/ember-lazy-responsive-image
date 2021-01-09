@@ -1,6 +1,6 @@
 # ember-lazy-responsive-image
 
-[![Build Status](https://travis-ci.org/kaliber5/ember-lazy-responsive-image.svg?branch=master)](https://travis-ci.org/kaliber5/ember-lazy-responsive-image)
+[![CI](https://github.com/kaliber5/ember-lazy-responsive-image/workflows/CI/badge.svg)](https://github.com/kaliber5/ember-lazy-responsive-image/actions?query=workflow%3ACI+branch%3Amaster)
 
 This ember-cli addon provides an ad-hoc replacement for the [responsive-image component](https://github.com/kaliber5/ember-responsive-image#the-responsive-image-component). It adds lazy-loading and LQIP (Low Quality Image Placeholder)-techniques to the [ember-responsive-image](https://github.com/kaliber5/ember-responsive-image) addon. It integrates the 
 [lazysizes](https://github.com/aFarkas/lazysizes) library through [ember-cli-lazysizes](https://github.com/kaliber5/ember-cli-lazysizes).
@@ -31,7 +31,7 @@ Furthermore it extends the configuration of the [ember-responsive-image](https:/
 
 ```js
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     'responsive-image': {
       // other options...
       lqip: {        
@@ -59,7 +59,7 @@ The responsive image component replaces the origin [responsive-image component](
 To disable lazyness and/or LQIP on a particular component, you can set the parameters `lazy` and/or `lqip` to false. 
 
 ```hbs
-{{responsive-image image="myImage.png" lazy=false lqip=false}}
+<ResponsiveImage @image="myImage.png" @lazy={{false}} @lqip={{false}}/>
 ```
 ## The responsive-background component
 
@@ -69,7 +69,7 @@ The responsive background component replaces the origin [responsive-background c
 Like the responsive-image component, you can disable lazyness and/or LQIP through the parameters `lazy` and `lqip`. 
 
 ```hbs
-{{responsive-background image="myImage.png" lazy=false lqip=false}}
+<ResponsiveBackground @image="myImage.png" @lazy={{false}} @lqip={{false}}/>
 ```
 
 Contributing
