@@ -7,7 +7,7 @@
   ],
   "repository": "https://github.com/kaliber5/ember-lazy-responsive-image",
   "license": "MIT",
-  "author": "Andreas Schacht <schacht@kaliber5.de>",
+  "author": "Andreas Schacht <andreas.schacht@kaliber5.de>, Simon Ihmig <simon.ihmig@kaliber5.de>",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -29,7 +29,7 @@
   "dependencies": {
     "ember-cli-babel": "^7.23.0",
     "ember-cli-htmlbars": "^5.3.1",
-    "ember-cli-lazysizes": "^0.1.1",
+    "ember-cli-lazysizes": "^1.0.0",
     "sharp": "^0.27.0"
   },
   "devDependencies": {
